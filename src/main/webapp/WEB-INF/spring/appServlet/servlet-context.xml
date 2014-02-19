@@ -63,4 +63,7 @@
 	
 	<context:component-scan base-package="org.social.feeds" />
 	
+	<!-- Loads Spring Task Scheduler related configurations -->
+	<beans:import resource="spring-scheduler.xml"/>
+	
 </beans:beans>
