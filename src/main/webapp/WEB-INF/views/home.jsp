@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
+<% response.addHeader("Refresh","60"); %>
 <html>
 <head>
 	<title>Home</title>

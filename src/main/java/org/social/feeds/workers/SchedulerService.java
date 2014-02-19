@@ -34,7 +34,7 @@ public class SchedulerService {
 	public void doSchedule() {
 		logger.debug("Start schedule");
 		
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 1; i++) {
 			logger.debug("Delegate to worker " + i);
 			worker.updateDB();
         }
