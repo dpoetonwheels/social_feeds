@@ -11,4 +11,5 @@ import org.social.feeds.model.Twitter;
  */
 public interface TwitterService {
 	public void addTwitter(Twitter twitter);
+	public Long getTwitterSinceId(String text, boolean isLast);
 }

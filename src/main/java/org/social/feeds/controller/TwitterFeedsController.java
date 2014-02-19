@@ -81,7 +81,7 @@ public class TwitterFeedsController {
 
 		List<Status> tweets = new ArrayList<Status>();
 		try {
-			tweets = twitterTemplate.twitterBean().search(query).getTweets();
+			tweets = twitterTemplate.twitterFactoryBean().search(query).getTweets();
 			Long id;
 			for (Status status : tweets) {
 				id = status.getId();
