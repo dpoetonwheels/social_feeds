@@ -69,19 +69,17 @@ public class TwitterWorker implements Worker {
 	 */
 	private void updateTwitterFeeds() {		
 
-		Query query = new Query("from:" + "davidstarsoccer" + " #" + "share2");
+		Query query = new Query("#share2 from:davidstarsoccer");
 		// query.setSinceId(433750539751280642L);
 		List<Status> tweets = new ArrayList<Status>();
 
 		Long sinceID = fetchTweetSinceId("", true);
-		System.out.println("sinceID == " + sinceID);
 		query.setSinceId(sinceID);
 		
 		try {
 			tweets = twitterTemplate.twitterFactoryBean().search(query)
 					.getTweets();
-			
-			System.out.println("tweets === " + tweets);
+			logger.debug("fetching tweets from Twitter..." + tweets);
 			// The default sorting order will rely on the sinceid
 			Collections.sort(tweets, null);
 						
