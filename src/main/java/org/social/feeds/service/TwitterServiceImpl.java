@@ -24,4 +24,9 @@ public class TwitterServiceImpl implements TwitterService {
 		twitterDAO.addTweet(twitter);
 	}
 
+	@Transactional
+	public Long getTwitterSinceId(String text, boolean isLast) {
+		return twitterDAO.getTwitterSinceId(text, isLast);
+	}
+
 }

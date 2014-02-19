@@ -30,5 +30,18 @@ public class TwitterDAOImpl implements TwitterDAO {
 		
 		return null;
 	}
+
+	@Override
+	public Long getTwitterSinceId(String text, boolean isLast) {
+		Long id = 0L;
+		if (isLast) {
+			List<Twitter> tweet = sessionFactory.getCurrentSession().createQuery("from Twitter order by id desc").setMaxResults(1).list();
+			if(tweet.size() > 0) {
+				id = tweet.get(0).getSince_id();
+			}
+		}
+		
+		return id;
+	}
 	
 }

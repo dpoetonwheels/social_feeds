@@ -3,6 +3,7 @@
 <html>
 <head>
 	<title>Home</title>
+	<script src="<c:url value="/resources/js/jquery-1.11.0.js" />"></script>
 </head>
 <body>
 <h1>
@@ -26,6 +27,12 @@
 	Instagram Picture - ${instauser.getFullName()}
 </tr>
 </p>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		alert('jquery ready');
+	});
+</script>
 
 </body>
 </html>

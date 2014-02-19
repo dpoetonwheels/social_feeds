@@ -33,7 +33,7 @@ public class TwitterConfigurationTemplate {
 	private String twitterAccessTokenSecret;
 
 	@Bean
-	public Twitter twitterBean() {
+	public Twitter twitterFactoryBean() {
 		Twitter twitter = new TwitterFactory().getInstance();
 		twitter.setOAuthConsumer(twitterConsumerKey, twitterConsumerSecret);
 		twitter.setOAuthAccessToken(new AccessToken(twitterAccessToken,
@@ -41,4 +41,5 @@ public class TwitterConfigurationTemplate {
 
 		return twitter;
 	}
+	
 }
