@@ -14,9 +14,16 @@
 
 <p><strong>Twitter Feeds from a user with hashtag search</strong></p>
 
+<div id="twitterfeeds">
 <p>
-	Test Callable --- ${foo}
+<c:forEach items="${tweets}" var="tweet">
+	<tr>
+		${tweet.getTweet()}
+	</tr>
+</c:forEach>
 </p>
+</div>
+
 
 <p> <strong>Instagram posts from specific user.</strong></p>
 <p>
