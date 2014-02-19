@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.social.feeds.config.InstagramConfigurationTemplate;
 import org.social.feeds.config.TwitterConfigurationTemplate;
-import org.social.feeds.events.TwitterFetchable;
+import org.social.feeds.events.TwitterEvents;
 import org.social.feeds.model.Twitter;
 import org.social.feeds.service.TwitterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +60,10 @@ public class SocialFeedsController {
 						
 		// get tweets from Twitter
     	try {    		
-    		model.addAttribute("tweets",  processTwitterFeeds());
+    		
+    		TwitterEvents twitterEvents = new TwitterEvents(twitterService, twitterTemplate);
+    		twitterEvents.updateTwitterFeeds();
+    		model.addAttribute("tweets",  getAllTweets());
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		}
@@ -77,6 +80,10 @@ public class SocialFeedsController {
 		}
 		
 		return "home";
+	}
+	
+	public List<Twitter> getAllTweets() {
+		return twitterService.listTweets();
 	}
 	
 	public Long fetchTweetSinceId(String tweetText, boolean isLast) {

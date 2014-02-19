@@ -16,7 +16,7 @@
 <p>
 <c:forEach items="${tweets}" var="tweet">
 	<tr>
-		${tweet.getText()}
+		${tweet.getTweet()}
 	</tr>
 </c:forEach>
 </p>
@@ -30,7 +30,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		alert('jquery ready');
+		//alert('jquery ready');
 	});
 </script>
 

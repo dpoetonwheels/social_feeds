@@ -3,6 +3,8 @@
  */
 package org.social.feeds.service;
 
+import java.util.List;
+
 import org.social.feeds.dao.TwitterDAO;
 import org.social.feeds.model.Twitter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,11 @@ public class TwitterServiceImpl implements TwitterService {
 	@Transactional
 	public Long getTwitterSinceId(String text, boolean isLast) {
 		return twitterDAO.getTwitterSinceId(text, isLast);
+	}
+
+	@Transactional
+	public List<Twitter> listTweets() {
+		return twitterDAO.listTweets();
 	}
 
 }

@@ -6,6 +6,6 @@ import org.social.feeds.model.Twitter;
 
 public interface TwitterDAO {
 	public void addTweet(Twitter tweet);
-	public List<Twitter> listTweet();
+	public List<Twitter> listTweets();
 	public Long getTwitterSinceId(String text, boolean isLast); 
 }
