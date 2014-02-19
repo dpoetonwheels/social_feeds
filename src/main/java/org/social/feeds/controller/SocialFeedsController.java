@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Callable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,93 +49,54 @@ public class SocialFeedsController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, final Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+
 		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
+				DateFormat.LONG, locale);
+
 		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-						
+
+		model.addAttribute("serverTime", formattedDate);
+
 		// get tweets from Twitter
-    	try {    		
-    		
-    		TwitterEvents twitterEvents = new TwitterEvents(twitterService, twitterTemplate);
-    		twitterEvents.updateTwitterFeeds();
-    		model.addAttribute("tweets",  getAllTweets());
+		try {
+			TwitterEvents twitterEvents = new TwitterEvents(twitterService,
+					twitterTemplate);
+			twitterEvents.updateTwitterFeeds();
+			model.addAttribute("tweets", getAllTweets());
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		}
+
+		/*return new Callable<String>() {
+			@Override
+			public String call() throws Exception {
+				for(int i=0; i < 10; i++) {
+					model.addAttribute("foo", "Adding new --- " + i);
+				}
+				Thread.sleep(2000);
+				return "home";
+			}
+		};*/
 		
-    	// get posts from facebook.
-    	//model.addAttribute("fbposts",  getFacebookFeeds());
-    	
-    	// get user from instagram
-    	try {
+		// get posts from facebook.
+		// model.addAttribute("fbposts", getFacebookFeeds());
+
+		// get user from instagram
+		try {
 			model.addAttribute("instauser", getInstagramFeeds());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return "home";
 	}
 	
 	public List<Twitter> getAllTweets() {
 		return twitterService.listTweets();
-	}
-	
-	public Long fetchTweetSinceId(String tweetText, boolean isLast) {
-		return twitterService.getTwitterSinceId(tweetText, isLast);
-	}
-	
-	public boolean canSaveTweets(List<Status> tweets) {
-		return tweets.size() == 0 ? false : true;
-	}
-	
-	public void saveTweets(List<Status> tweets) {
-		Long id;
-		for(Status status: tweets) {
-			id = status.getId();
-			Twitter twitter = new Twitter();
-			twitter.setSince_id(id);
-			twitter.setTweet(status.getText());
-			twitterService.addTwitter(twitter);
-		}
-	}
-		
-	/**
-	 * first fetch the last since id tweet from the db.
-	 * use that to make a forward search on twitter to fetch next data.
-	 * if data found, store it in db, and sleep for 15 minutes 
-	 * (the thread sleep should take place in the view - AJAX)
-	 * @return
-	 */
-	public List<Status> processTwitterFeeds() {		
-
-		Query query = new Query("from:" + "davidstarsoccer" + " #" + "share2");
-		// query.setSinceId(433750539751280642L);
-		List<Status> tweets = new ArrayList<Status>();
-
-		Long sinceID = fetchTweetSinceId("", true);
-		query.setSinceId(sinceID);
-		
-		try {
-			tweets = twitterTemplate.twitterFactoryBean().search(query)
-					.getTweets();
-			// The default sorting order will rely on the sinceid
-			Collections.sort(tweets, null);
-						
-			if (canSaveTweets(tweets)) {
-				saveTweets(tweets);
-			}
-		} catch (TwitterException e) {
-			e.printStackTrace();
-		}
-		return tweets;
-			
 	}
 		
 	private com.sola.instagram.model.User getInstagramFeeds() throws Exception {
