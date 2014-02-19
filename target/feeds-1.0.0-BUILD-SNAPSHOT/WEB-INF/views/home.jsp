@@ -13,12 +13,9 @@
 <P>  The time on the server is ${serverTime}. </P>
 
 <p><strong>Twitter Feeds from a user with hashtag search</strong></p>
+
 <p>
-<c:forEach items="${tweets}" var="tweet">
-	<tr>
-		${tweet.getTweet()}
-	</tr>
-</c:forEach>
+	Test Callable --- ${foo}
 </p>
 
 <p> <strong>Instagram posts from specific user.</strong></p>

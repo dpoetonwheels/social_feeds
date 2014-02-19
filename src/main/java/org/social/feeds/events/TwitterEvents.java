@@ -20,7 +20,7 @@ import twitter4j.TwitterException;
  * @author devang.desai
  *
  */
-public class TwitterEvents implements Runnable {
+public class TwitterEvents {
 
 	private TwitterConfigurationTemplate twitterTemplate;
 	private TwitterService twitterService;
@@ -30,40 +30,6 @@ public class TwitterEvents implements Runnable {
 		this.twitterTemplate = twitterTemplate;
 	}
 	
-	@Override
-	public void run() {
-		// first fetch the last since id tweet from the db.
-		// use that to make a forward search on twitter to fetch next data.
-		// if data found, store it in db, and sleep for 15 minutes.
-
-	/*	Query query = new Query("from:" + "davidstarsoccer" + " #" + "share2");
-		List<Status> tweets = new ArrayList<Status>();
-
-		while (true) {
-			Long sinceID = fetchTweetSinceId("", true);
-			query.setSinceId(sinceID);
-			System.out.println("since ID == " + sinceID);
-
-			try {
-				tweets = twitterTemplate.twitterFactoryBean().search(query)
-						.getTweets();
-				if (canSaveTweets(tweets) || sinceID == 0) {
-					System.out.println("saving -- ");
-					saveTweets(tweets);
-				}
-				System.out.println("sleeping current thread-----");
-				Thread.sleep(50000);
-			} catch (TwitterException e) {
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}*/
-				
-	}
-
 	public Long fetchTweetSinceId(String tweetText, boolean isLast) {
 		return twitterService.getTwitterSinceId(tweetText, isLast);
 	}

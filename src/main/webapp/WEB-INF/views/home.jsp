@@ -13,6 +13,8 @@
 <P>  The time on the server is ${serverTime}. </P>
 
 <p><strong>Twitter Feeds from a user with hashtag search</strong></p>
+
+<div id="twitterfeeds">
 <p>
 <c:forEach items="${tweets}" var="tweet">
 	<tr>
@@ -20,6 +22,8 @@
 	</tr>
 </c:forEach>
 </p>
+</div>
+
 
 <p> <strong>Instagram posts from specific user.</strong></p>
 <p>
