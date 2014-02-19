@@ -26,9 +26,8 @@ public class TwitterDAOImpl implements TwitterDAO {
 	}
 
 	@Override
-	public List<Twitter> listTweet() {
-		
-		return null;
+	public List<Twitter> listTweets() {
+		return sessionFactory.getCurrentSession().createQuery("from Twitter").list();
 	}
 
 	@Override
