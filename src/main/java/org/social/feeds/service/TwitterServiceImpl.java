@@ -36,4 +36,9 @@ public class TwitterServiceImpl implements TwitterService {
 		return twitterDAO.listTweets();
 	}
 
+	@Transactional
+	public List<Twitter> getTweetsByPage(int page, int size) {
+		return twitterDAO.getTweetsByPage(page, size);
+	}
+
 }

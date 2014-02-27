@@ -69,6 +69,11 @@ public class TwitterWorker implements Worker {
 	 */
 	private void updateTwitterFeeds() {		
 
+		// Note: As per the Search API from twitter, this would only search
+		// for one weeks old tweets, not beyond it. However, since we store
+		// the data in the database every 15 minutes and use that as the 
+		// starting point, it shouldn't be an issue.
+		
 		Query query = new Query("#share2 from:davidstarsoccer");
 		// query.setSinceId(433750539751280642L);
 		List<Status> tweets = new ArrayList<Status>();
@@ -79,7 +84,7 @@ public class TwitterWorker implements Worker {
 		try {
 			tweets = twitterTemplate.twitterFactoryBean().search(query)
 					.getTweets();
-			logger.debug("fetching tweets from Twitter..." + tweets);
+			logger.info("fetching tweets from Twitter..." + tweets);
 			// The default sorting order will rely on the sinceid
 			Collections.sort(tweets, null);
 						
