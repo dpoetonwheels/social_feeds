@@ -14,5 +14,6 @@ import org.social.feeds.model.Twitter;
 public interface TwitterService {
 	public void addTwitter(Twitter twitter);
 	public Long getTwitterSinceId(String text, boolean isLast);
+	public List<Twitter> getTweetsByPage(int page, int size);
 	public List<Twitter> listTweets();
 }

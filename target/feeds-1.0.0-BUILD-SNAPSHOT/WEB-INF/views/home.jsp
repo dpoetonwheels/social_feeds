@@ -5,6 +5,16 @@
 <head>
 	<title>Home</title>
 	<script src="<c:url value="/resources/js/jquery-1.11.0.js" />"></script>
+<style type="text/css" title="currentStyle">
+    @import "resources/css/demo_page.css"; 
+    @import "resources/css/demo_table_jui.css";
+    @import "resources/css/smoothness/jquery-ui-1.10.3.custom.min.css"; 
+</style>
+
+<script type="text/javascript" src="resources/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="resources/js/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="resources/js/jquery-ui-1.10.3.custom.min.js"></script>
+
 </head>
 <body>
 <h1>
@@ -19,12 +29,40 @@
 <p>
 <c:forEach items="${tweets}" var="tweet">
 	<tr>
-		${tweet.getTweet()}
+		<td>${tweet.getTweet()}</td>
+		<td>${tweet.getSince_id()}</td>
 	</tr>
 </c:forEach>
 </p>
 </div>
 
+   
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+      <thead>
+        <tr>
+            <th>Rendering engine</th>
+            <th>Browser</th>
+            <th>Platform(s)</th>
+            <th>Engine version</th>
+            <th>CSS grade</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td colspan="5" class="dataTables_empty">Loading data from server</td>
+    </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+        <th>Rendering engine</th>
+        <th>Browser</th>
+        <th>Platform(s)</th>
+        <th>Engine version</th>
+        <th>CSS grade</th>
+    </tr>
+    </tfoot>
+</table>
+   
 
 <p> <strong>Instagram posts from specific user.</strong></p>
 <p>
@@ -33,10 +71,25 @@
 </tr>
 </p>
 
+
 <script type="text/javascript">
-	$(document).ready(function() {
-		//alert('jquery ready');
-	});
+$(document).ready(function() {
+    $('#example').dataTable( {
+        "bProcessing": true,
+        "bServerSide": true,
+        "bPaginate": true,
+        "sAjaxSource": "/feeds/twitterajax.json",
+        "fnServerData": function ( sSource, aoData, fnCallback ) {
+            $.ajax( {
+                "dataType": 'json',
+                "type": "GET",
+                "url": sSource,
+                "data": aoData,
+                "success": fnCallback
+            } );
+        }
+    } );
+} );
 </script>
 
 </body>
