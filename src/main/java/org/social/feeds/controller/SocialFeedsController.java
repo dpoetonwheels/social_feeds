@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -69,7 +70,7 @@ public class SocialFeedsController {
 
 		// get user from instagram
 		try {
-			model.addAttribute("instauser", getInstagramFeeds());
+			model.addAttribute("instauser", getInstagramFeeds().getFullName());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -105,13 +106,17 @@ public class SocialFeedsController {
 	    * compatible with datatables.net
 	    */
 	     
-	    @RequestMapping(method={RequestMethod.POST,RequestMethod.GET} ,value="/fetch")
+	    @RequestMapping(method={RequestMethod.POST,RequestMethod.GET} ,value="/twitter_feeds")
 	    public @ResponseBody Map<String, Object[]> findAllForTableView(){
 	       
 	       Collection<Twitter> tweets = twitterService.listTweets();
-	       	       
+	       Map<String, Object[]> twitterJSON = new HashMap<String, Object[]>();
 	       
-	       return Collections.singletonMap("aaData", getJSONForTwitter(tweets));
+	       twitterJSON.put("iTotalRecords", new Object[] {tweets.size()});
+	       twitterJSON.put("iTotalDisplayRecords", new Object[] {10});
+	       twitterJSON.put("aaData", getJSONForTwitter(tweets));
+	       
+	       return twitterJSON;
 	    }
 	
 	    /**
@@ -121,22 +126,21 @@ public class SocialFeedsController {
 	         Object[] rdArray = new Object[tweets.size()];
 	         int i = 0;
 	         for(Twitter u:tweets){
-	             // [ name, id,arn,groups ]
-	             Object[] us = new String[]{u.getSince_id().toString(), u.getTweet(), u.getId().toString()}; 
+	             Object[] us = new String[]{u.getId().toString(), u.getUserName(), u.getTweet()}; 
 	             rdArray[i] = us;
 	             i++;            
 	         }
 	         return rdArray;
 	     }   
 	
-	     @RequestMapping(value = "/twitterajax.json", method = RequestMethod.GET)
+	     @RequestMapping(value = "/sample", method = RequestMethod.GET)
 	     public @ResponseBody String doAjax( @RequestParam int iDisplayStart,
 	                                 @RequestParam int iDisplayLength,
 	                                 @RequestParam int iColumns,
 	                                 @RequestParam String sEcho) {      
 	              
 	             
-	    	 	// This will be the twitter json to be filled
+	    	 	// sample json to be filled
 	             return
 	              
 	             "{  \"sEcho\": 2," +
@@ -168,7 +172,13 @@ public class SocialFeedsController {
 	private com.sola.instagram.model.User getInstagramFeeds() throws Exception {
 		com.sola.instagram.model.User me = instagramTemplate.instagramBean()
 				.searchUsersByName("devangvdesai").get(0);
+		
 		return me;
+	}
+	
+	
+	private void getYoutubeVideos() {
+		
 	}
 	
 }

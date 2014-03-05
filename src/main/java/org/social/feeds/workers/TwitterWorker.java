@@ -56,6 +56,8 @@ public class TwitterWorker implements Worker {
 			Twitter twitter = new Twitter();
 			twitter.setSince_id(id);
 			twitter.setTweet(status.getText());
+			twitter.setUserName(status.getUser().getName());
+			twitter.setEmailAddress(status.getUser().getScreenName());
 			twitterService.addTwitter(twitter);
 		}
 	}

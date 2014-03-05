@@ -60,6 +60,7 @@
 	<context:property-placeholder location="classpath:twitter.properties"/>			
 	<context:property-placeholder location="classpath:instagram.properties"/>						
 	<context:property-placeholder location="classpath:facebook.properties"/>
+	<context:property-placeholder location="classpath:youtube.properties"/>
 	
 	<context:component-scan base-package="org.social.feeds" />
 	
