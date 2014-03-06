@@ -5,7 +5,10 @@
 
 <hibernate-configuration>	
 	<session-factory>
-			
+		<!-- Drop and re-create the database schema on startup -->
+    	<!--  <property name="hbm2ddl.auto">update</property> -->
+    	
 		<mapping class="org.social.feeds.model.Twitter"/>
+		<mapping class="org.social.feeds.model.Youtube"/>
 	</session-factory>
 </hibernate-configuration>

@@ -24,27 +24,13 @@
 <P>  The time on the server is ${serverTime}. </P>
 
 <p><strong>Twitter Feeds from a user with hashtag search</strong></p>
-
-<div id="twitterfeeds">
-<p>
-<c:forEach items="${tweets}" var="tweet">
-	<tr>
-		<td>${tweet.getTweet()}</td>
-		<td>${tweet.getSince_id()}</td>
-	</tr>
-</c:forEach>
-</p>
-</div>
-
-   
+  
 <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
       <thead>
         <tr>
-            <th>Rendering engine</th>
-            <th>Browser</th>
-            <th>Platform(s)</th>
-            <th>Engine version</th>
-            <th>CSS grade</th>
+            <th>Id</th>
+            <th>UserName</th>
+            <th>Tweet</th>
         </tr>
     </thead>
     <tbody>
@@ -54,11 +40,9 @@
     </tbody>
     <tfoot>
         <tr>
-        <th>Rendering engine</th>
-        <th>Browser</th>
-        <th>Platform(s)</th>
-        <th>Engine version</th>
-        <th>CSS grade</th>
+         <th>Id</th>
+         <th>UserName</th>
+         <th>Tweet</th>
     </tr>
     </tfoot>
 </table>
@@ -67,7 +51,7 @@
 <p> <strong>Instagram posts from specific user.</strong></p>
 <p>
 <tr>
-	Instagram Picture - ${instauser.getFullName()}
+	Instagram Picture - ${instauser}
 </tr>
 </p>
 
@@ -77,8 +61,13 @@ $(document).ready(function() {
     $('#example').dataTable( {
         "bProcessing": true,
         "bServerSide": true,
+        "sPaginationType": "full_numbers",
+        "bJQueryUI": true,
+        "bAutoWidth": true,
+        "bLengthChange": true,
+        "aoColumns": [{ "sWidth": "10%" }, { "sWidth": "35%" }, { "sWidth": "55%" }],
         "bPaginate": true,
-        "sAjaxSource": "/feeds/twitterajax.json",
+        "sAjaxSource": "/feeds/twitter_feeds.json",
         "fnServerData": function ( sSource, aoData, fnCallback ) {
             $.ajax( {
                 "dataType": 'json',

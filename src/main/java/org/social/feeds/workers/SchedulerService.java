@@ -20,7 +20,11 @@ public class SchedulerService {
 
 	@Autowired
 	@Qualifier("twitterWorker")
-	private Worker worker;
+	private Worker twitterWorker;
+	
+	@Autowired
+	@Qualifier("youtubeWorker")
+	private Worker youtubeWorker;
 	
 	/**
 	 * You can opt for cron expression or fixedRate or fixedDelay
@@ -36,7 +40,8 @@ public class SchedulerService {
 		
 		for (int i = 0; i < 1; i++) {
 			logger.debug("Delegate to worker " + i);
-			worker.updateDB();
+			twitterWorker.updateDB();
+			youtubeWorker.updateDB();
         }
 		
 		logger.debug("End schedule");

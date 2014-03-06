@@ -9,6 +9,8 @@ import javax.persistence.Id;
  */
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Index;
+
 /**
  * @author devang.desai
  *
@@ -24,6 +26,28 @@ public class Twitter {
 	@Column(name="tweet")
 	private String tweet;
 	
+	@Column(name="username")
+	private String userName;
+	
+	@Column(name="email")
+	private String emailAddress;
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+	
 	public String getTweet() {
 		return tweet;
 	}
@@ -32,6 +56,7 @@ public class Twitter {
 		this.tweet = tweet;
 	}
 
+	@Index(name="twitter_since_id")
 	@Column(name="since_id")
 	private Long since_id;
 
