@@ -3,6 +3,7 @@
  */
 package org.social.feeds.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.social.feeds.dao.TwitterDAO;
@@ -11,6 +12,8 @@ import org.social.feeds.model.Youtube;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.api.client.util.DateTime;
 
 /**
  * @author devang.desai
@@ -33,13 +36,13 @@ public class YoutubeServiceImpl implements YoutubeService {
 	}
 
 	@Transactional
-	public Long getYoutubeFeedSinceId(String text, boolean isLast) {
-		return youtubeDAO.getYoutubeFeedSinceId(text, isLast);
+	public void addYoutubeFeed(Youtube feed) {
+		youtubeDAO.addYoutubeFeed(feed);
 	}
 
 	@Transactional
-	public void addYoutubeFeed(Youtube feed) {
-		youtubeDAO.addYoutubeFeed(feed);
+	public String getYoutubeFeedSincePublished(boolean isLast) {
+		return youtubeDAO.getYoutubeFeedSincePublished(isLast);
 	}
 
 }

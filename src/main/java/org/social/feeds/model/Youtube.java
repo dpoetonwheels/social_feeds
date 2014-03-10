@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.google.api.client.util.DateTime;
+
 /**
  * @author devang.desai
  *
@@ -48,11 +50,11 @@ public class Youtube {
 		this.videoId = videoId;
 	}
 
-	public Timestamp getPublishedAt() {
+	public String getPublishedAt() {
 		return publishedAt;
 	}
 
-	public void setPublishedAt(Timestamp publishedAt) {
+	public void setPublishedAt(String publishedAt) {
 		this.publishedAt = publishedAt;
 	}
 
@@ -63,6 +65,6 @@ public class Youtube {
 	private String videoId;
 	
 	@Column(name="published_at")
-	private Timestamp publishedAt;
+	private String publishedAt;
 	
 }
