@@ -13,6 +13,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.social.feeds.config.InstagramConfigurationTemplate;
+import org.social.feeds.model.DataTablesTO;
 import org.social.feeds.model.Twitter;
 import org.social.feeds.service.TwitterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 
@@ -79,92 +82,6 @@ public class SocialFeedsController {
 		return "home";
 	}
 	
-	/**
-	 * Gets all the twitter feeds json
-	 */
-	@RequestMapping(value = "/twitter", method = RequestMethod.GET)
-	public @ResponseBody String getAllTwitterJSON(Locale locale, Model model) {
-		
-		Gson gson = new Gson();		
-		return gson.toJson(getAllTweets());
-	}
-	
-	/**
-	 * Get paginated json for twitter feeds
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/twitter/{number}", method = RequestMethod.GET)
-	public @ResponseBody String getTwitterJson(@PathVariable("number") String number) {
-		List<Twitter> tweets = twitterService.getTweetsByPage(Integer.parseInt(number), 0);
-		Gson gson = new Gson();		
-		return gson.toJson(tweets);
-	}
-	
-	/**
-	    * Fetch a the user list from the service, and package up into a Map that is 
-	    * compatible with datatables.net
-	    */
-	     
-	    @RequestMapping(method={RequestMethod.POST,RequestMethod.GET} ,value="/twitter_feeds")
-	    public @ResponseBody Map<String, Object[]> findAllForTableView(){
-	       
-	       Collection<Twitter> tweets = twitterService.listTweets();
-	       Map<String, Object[]> twitterJSON = new HashMap<String, Object[]>();
-	       
-	       twitterJSON.put("iTotalRecords", new Object[] {tweets.size()});
-	       twitterJSON.put("iTotalDisplayRecords", new Object[] {10});
-	       twitterJSON.put("aaData", getJSONForTwitter(tweets));
-	       
-	       return twitterJSON;
-	    }
-	
-	    /**
-	     * I only want certain user info..
-	     */
-	     public Object[] getJSONForTwitter(Collection<Twitter> tweets){
-	         Object[] rdArray = new Object[tweets.size()];
-	         int i = 0;
-	         for(Twitter u:tweets){
-	             Object[] us = new String[]{u.getId().toString(), u.getUserName(), u.getTweet()}; 
-	             rdArray[i] = us;
-	             i++;            
-	         }
-	         return rdArray;
-	     }   
-	
-	     @RequestMapping(value = "/sample", method = RequestMethod.GET)
-	     public @ResponseBody String doAjax( @RequestParam int iDisplayStart,
-	                                 @RequestParam int iDisplayLength,
-	                                 @RequestParam int iColumns,
-	                                 @RequestParam String sEcho) {      
-	              
-	             
-	    	 	// sample json to be filled
-	             return
-	              
-	             "{  \"sEcho\": 2," +
-	             "   \"iTotalRecords\": 2," +
-	             "   \"iTotalDisplayRecords\": 2," +
-	             "   \"aaData\": [" +
-	             "       [" +
-	             "           \"Gecko\"," +
-	             "           \"Firefox 1.0\"," +
-	             "           \"Win 98+ / OSX.2+\"," +
-	             "           \"1.7\"," +
-	             "           \"A\"" +
-	             "       ]," +
-	             "       [" +
-	             "           \"Gecko\"," +
-	             "           \"Firefox 1.5\"," +
-	             "           \"Win 98+ / OSX.2+\"," +
-	             "           \"1.8\"," +
-	             "           \"A\"" +
-	             "       ]" +
-	             "   ]" +
-	             "}";
-	         }     
-	     
 	private List<Twitter> getAllTweets() {
 		return twitterService.listTweets();
 	}

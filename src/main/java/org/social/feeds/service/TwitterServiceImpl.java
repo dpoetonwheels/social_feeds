@@ -41,4 +41,8 @@ public class TwitterServiceImpl implements TwitterService {
 		return twitterDAO.getTweetsByPage(page, size);
 	}
 
+	@Transactional
+	public List<Twitter> getTweetsForJSON(int startPage, int limit) {
+		return twitterDAO.getTweetsForJSON(startPage, limit);
+	}
 }

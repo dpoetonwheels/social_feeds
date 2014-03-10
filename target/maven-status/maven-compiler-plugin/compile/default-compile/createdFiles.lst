@@ -1,4 +1,5 @@
 org/social/feeds/service/YoutubeServiceImpl.class
+org/social/feeds/model/DataTablesTO.class
 org/social/feeds/model/Youtube.class
 org/social/feeds/workers/InstagramWorker.class
 org/social/feeds/model/Instagram.class
@@ -8,7 +9,6 @@ org/social/feeds/service/TwitterServiceImpl.class
 org/social/feeds/service/TwitterService.class
 org/social/feeds/config/YoutubeConfigurationTemplate.class
 org/social/feeds/controller/TwitterFeedsController.class
-org/social/feeds/model/TestDateTime.class
 org/social/feeds/workers/TwitterWorker.class
 org/social/feeds/dao/YoutubeDAOImpl.class
 org/social/feeds/service/YoutubeService.class
