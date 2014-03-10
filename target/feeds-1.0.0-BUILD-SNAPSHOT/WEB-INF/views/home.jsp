@@ -25,7 +25,7 @@
 
 <p><strong>Twitter Feeds from a user with hashtag search</strong></p>
   
-<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+<table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="example">
       <thead>
         <tr>
             <th>Id</th>
@@ -62,12 +62,16 @@ $(document).ready(function() {
         "bProcessing": true,
         "bServerSide": true,
         "sPaginationType": "full_numbers",
+        "bLenthChange" : true,
+        "iDisplayLength" : 5,
         "bJQueryUI": true,
         "bAutoWidth": true,
-        "bLengthChange": true,
-        "aoColumns": [{ "sWidth": "10%" }, { "sWidth": "35%" }, { "sWidth": "55%" }],
+        "aoColumns": [
+                      { "sWidth": "10%", "sTitle" : "User ID", "mData" : "id" }, 
+                      { "sWidth": "35%", "sTitle" : "UserName", "mData" : "userName" }, 
+                      { "sWidth": "55%", "sTitle" : "Tweet", "mData" : "tweet" }],
         "bPaginate": true,
-        "sAjaxSource": "/feeds/twitter_feeds.json",
+        "sAjaxSource": "/feeds/twitter/fetch.json",
         "fnServerData": function ( sSource, aoData, fnCallback ) {
             $.ajax( {
                 "dataType": 'json',

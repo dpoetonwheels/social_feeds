@@ -10,6 +10,7 @@
 /Users/devang.desai/Documents/workspace/SocialFeeds/src/main/java/org/social/feeds/dao/TwitterDAO.java
 /Users/devang.desai/Documents/workspace/SocialFeeds/src/main/java/org/social/feeds/dao/TwitterDAOImpl.java
 /Users/devang.desai/Documents/workspace/SocialFeeds/src/main/java/org/social/feeds/config/TwitterConfigurationTemplate.java
+/Users/devang.desai/Documents/workspace/SocialFeeds/src/main/java/org/social/feeds/model/DataTablesTO.java
 /Users/devang.desai/Documents/workspace/SocialFeeds/src/main/java/org/social/feeds/config/InstagramConfigurationTemplate.java
 /Users/devang.desai/Documents/workspace/SocialFeeds/src/main/java/org/social/feeds/model/Youtube.java
 /Users/devang.desai/Documents/workspace/SocialFeeds/src/main/java/org/social/feeds/workers/YoutubeWorker.java

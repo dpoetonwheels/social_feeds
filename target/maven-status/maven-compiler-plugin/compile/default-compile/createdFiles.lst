@@ -1,4 +1,5 @@
 org/social/feeds/service/YoutubeServiceImpl.class
+org/social/feeds/model/DataTablesTO.class
 org/social/feeds/model/Youtube.class
 org/social/feeds/workers/InstagramWorker.class
 org/social/feeds/model/Instagram.class
