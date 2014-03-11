@@ -3,15 +3,13 @@
  */
 package org.social.feeds.dao;
 
-import java.sql.Timestamp;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.social.feeds.model.Youtube;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.google.api.client.util.DateTime;
 
 /**
  * @author devang.desai
@@ -30,8 +28,12 @@ public class YoutubeDAOImpl implements YoutubeDAO {
 
 	@Override
 	public List<Youtube> getFeedsByPage(int page, int size) {
-		// TODO Auto-generated method stub
-		return null;
+		// fetch data using scrollable results (hibernate)
+		Query query = generateQuery();
+		query.setFirstResult(page);
+		query.setMaxResults(size);
+
+		return query.list();
 	}
 	
 	@Override
@@ -55,6 +57,24 @@ public class YoutubeDAOImpl implements YoutubeDAO {
 		}
 		
 		return publishedAt;
+	}
+
+	private org.hibernate.Query generateQuery() {
+		String strQry = "from Youtube c order by c.id asc";
+		Query query = this.sessionFactory.getCurrentSession().createQuery(
+				strQry);
+		return query;
+	}
+	
+	@Override
+	public List<Youtube> getVideosForJSON(int startPage, int limit) {
+		// fetch data using scrollable results (hibernate)
+		Query query = generateQuery();
+		int firstResult = (startPage * limit) - (limit);
+		query.setFirstResult(firstResult);
+		query.setMaxResults(limit);
+
+		return query.list();
 	}
 	
 }

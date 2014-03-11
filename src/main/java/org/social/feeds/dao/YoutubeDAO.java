@@ -18,5 +18,6 @@ public interface YoutubeDAO {
 	public void addYoutubeFeed(Youtube feed);
 	public List<Youtube> listFeeds();
 	public List<Youtube> getFeedsByPage(int page, int size);
-	public String getYoutubeFeedSincePublished(boolean isLast); 
+	public String getYoutubeFeedSincePublished(boolean isLast);
+	public List<Youtube> getVideosForJSON(int startPage, int limit); 
 }

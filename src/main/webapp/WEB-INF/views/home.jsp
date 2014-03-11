@@ -25,7 +25,7 @@
 
 <p><strong>Twitter Feeds from a user with hashtag search</strong></p>
   
-<table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="example">
+<table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="twitterTable">
       <thead>
         <tr>
             <th>Id</th>
@@ -47,7 +47,29 @@
     </tfoot>
 </table>
    
-
+<p><strong>Youtube Feeds from a user with specific channel</strong></p>
+<table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="youtubeTable">
+      <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Published At</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td colspan="5" class="dataTables_empty">Loading data from server</td>
+    </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+         <th>Id</th>
+         <th>Title</th>
+         <th>Published At</th>
+    </tr>
+    </tfoot>
+</table>   
+   
 <p> <strong>Instagram posts from specific user.</strong></p>
 <p>
 <tr>
@@ -58,7 +80,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#example').dataTable( {
+    $('#twitterTable').dataTable( {
         "bProcessing": true,
         "bServerSide": true,
         "sPaginationType": "full_numbers",
@@ -82,6 +104,33 @@ $(document).ready(function() {
             } );
         }
     } );
+    
+    
+    $('#youtubeTable').dataTable( {
+        "bProcessing": true,
+        "bServerSide": true,
+        "sPaginationType": "full_numbers",
+        "bLenthChange" : true,
+        "iDisplayLength" : 5,
+        "bJQueryUI": true,
+        "bAutoWidth": true,
+        "aoColumns": [
+                      { "sWidth": "10%", "sTitle" : "ID", "mData" : "id" }, 
+                      { "sWidth": "35%", "sTitle" : "Title", "mData" : "title" }, 
+                      { "sWidth": "55%", "sTitle" : "Published At", "mData" : "publishedAt" }],
+        "bPaginate": true,
+        "sAjaxSource": "/feeds/youtube/fetch.json",
+        "fnServerData": function ( sSource, aoData, fnCallback ) {
+            $.ajax( {
+                "dataType": 'json',
+                "type": "GET",
+                "url": sSource,
+                "data": aoData,
+                "success": fnCallback
+            } );
+        }
+    } );
+    
 } );
 </script>
 

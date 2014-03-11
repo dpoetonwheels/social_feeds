@@ -45,4 +45,9 @@ public class YoutubeServiceImpl implements YoutubeService {
 		return youtubeDAO.getYoutubeFeedSincePublished(isLast);
 	}
 
+	@Transactional
+	public List<Youtube> getVideosForJSON(int startPage, int limit) {
+		return youtubeDAO.getVideosForJSON(startPage, limit);
+	}
+
 }
