@@ -7,11 +7,13 @@ org/social/feeds/model/Twitter.class
 org/social/feeds/dao/TwitterDAOImpl.class
 org/social/feeds/service/TwitterServiceImpl.class
 org/social/feeds/service/TwitterService.class
-org/social/feeds/config/YoutubeConfigurationTemplate.class
+org/social/feeds/controller/YoutubeFeedsController.class
 org/social/feeds/controller/TwitterFeedsController.class
+org/social/feeds/config/YoutubeConfigurationTemplate.class
 org/social/feeds/workers/TwitterWorker.class
 org/social/feeds/dao/YoutubeDAOImpl.class
 org/social/feeds/service/YoutubeService.class
+org/social/feeds/helper/JSONHelper.class
 org/social/feeds/dao/YoutubeDAO.class
 org/social/feeds/workers/YoutubeWorker.class
 org/social/feeds/config/InstagramConfigurationTemplate.class

@@ -20,8 +20,6 @@ import org.social.feeds.service.YoutubeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import twitter4j.Status;
-
 import com.google.api.client.util.DateTime;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
@@ -57,8 +55,6 @@ public class YoutubeWorker implements Worker {
 				
 		// Check db if an entry exists
 		String publishedAt = fetchFeedPublishedAt(true);
-		//String publishedAt = "2014-03-02T21:51:11.000Z";
-		//String publishedAt = "2014-03-06T21:51:11.000Z";
 		if(publishedAt != null) {
 			DateTime dt = new DateTime(DateTime.parseRfc3339(publishedAt).getValue() + 1000);
 			search.setPublishedAfter(dt);
@@ -70,7 +66,6 @@ public class YoutubeWorker implements Worker {
 
 		// Limit searching based on what is available in the database.
 		// We will use publishedAt as the check condition.
-		
 		
 		// Call the API and print results.
 		SearchListResponse searchResponse = search.execute();

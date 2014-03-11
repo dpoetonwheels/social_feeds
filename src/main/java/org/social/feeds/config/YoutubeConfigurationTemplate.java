@@ -83,6 +83,7 @@ public class YoutubeConfigurationTemplate {
 		return youtube;
 	}
 	
+	
 	private boolean isAccountValid() {
 		if (youtubeServiceAccountEmail.startsWith("Enter ")) {
 			System.err.println(youtubeServiceAccountEmail);

@@ -13,6 +13,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.social.feeds.config.TwitterConfigurationTemplate;
+import org.social.feeds.helper.JSONHelper;
 import org.social.feeds.model.DataTablesTO;
 import org.social.feeds.model.Twitter;
 import org.social.feeds.service.TwitterService;
@@ -67,7 +68,7 @@ public class TwitterFeedsController {
 	/**
 	 * Gets all the twitter feeds json
 	 */
-	@RequestMapping(value = "/twitter", method = RequestMethod.GET)
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public @ResponseBody String getAllTwitterJSON(Locale locale, Model model) {
 		Gson gson = new Gson();
 		return gson.toJson(twitterService.listTweets());
@@ -75,7 +76,7 @@ public class TwitterFeedsController {
 	
 	@RequestMapping(value = "/fetch", produces = "application/json")
 	 public @ResponseBody
-	 String showUser(@RequestParam int iDisplayStart,
+	 String showTweets(@RequestParam int iDisplayStart,
 	            @RequestParam int iDisplayLength, @RequestParam int sEcho) {
 	 
 	  DataTablesTO<Twitter> dt = new DataTablesTO<Twitter>();
@@ -88,16 +89,6 @@ public class TwitterFeedsController {
 	  dt.setiTotalRecords(allTweets.size());   // the total data in db for datatables to calculate page no.
 	  dt.setsEcho(sEcho);
 	  
-	  return toJson(dt);
+	  return JSONHelper.toJson(dt);
 	 }
-	
-	private String toJson(DataTablesTO<?> dt) {
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			return mapper.writeValueAsString(dt);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 }

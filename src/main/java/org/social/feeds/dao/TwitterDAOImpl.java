@@ -47,19 +47,24 @@ public class TwitterDAOImpl implements TwitterDAO {
 	@Override
 	public List<org.social.feeds.model.Twitter> getTweetsByPage(int page, int size) {
 		// fetch data using scrollable results (hibernate)
-		String strQry = "from Twitter c order by c.id asc";
-        Query query = this.sessionFactory.getCurrentSession().createQuery(strQry);
+        Query query = generateQuery();
         query.setFirstResult(page);
         query.setMaxResults(size);
  
         return query.list();
 	}
 	
+	private org.hibernate.Query generateQuery() {
+		String strQry = "from Twitter c order by c.id asc";
+		Query query = this.sessionFactory.getCurrentSession().createQuery(
+				strQry);
+		return query;
+	}
+	
 	@Override
 	public List<org.social.feeds.model.Twitter> getTweetsForJSON(int startPage, int limit) {
 		// fetch data using scrollable results (hibernate)
-		String strQry = "from Twitter c order by c.id asc";
-        Query query = this.sessionFactory.getCurrentSession().createQuery(strQry);
+        Query query = generateQuery();
         int firstResult = (startPage * limit) - (limit);
         query.setFirstResult(firstResult);
         query.setMaxResults(limit);
